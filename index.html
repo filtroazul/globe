@@ -14,18 +14,20 @@
   #c{display:block;position:fixed;inset:0;width:100%;height:100%;}
   #hint{position:fixed;left:12px;bottom:10px;font:13px/1.4 system-ui,sans-serif;color:#8a7f6b;opacity:.5;pointer-events:none;}
   /* player de scrub (some quando o mouse sai; pra ajustes, não faz parte da peça) */
-  #player{position:fixed;left:50%;transform:translateX(-50%);bottom:34px;z-index:5;
+  #player{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;z-index:5;
     display:flex;gap:10px;align-items:center;width:min(760px,86vw);padding:7px 12px;
     background:rgba(0,0,0,.38);border-radius:10px;opacity:.22;transition:opacity .15s;cursor:default;}
   #player:hover{opacity:1;}
   #bar{flex:1;accent-color:#d8cba8;cursor:pointer;}
   #pp{background:none;border:0;color:#e8dfc8;font-size:15px;cursor:pointer;width:26px;}
   #tm{font:12px/1 system-ui,sans-serif;color:#e8dfc8;min-width:86px;text-align:right;}
+  /* H esconde toda a hud (player + hint) — pra assistir/exportar limpo */
+  body.nohud #player, body.nohud #hint{display:none;}
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div id="hint">clique no palco/R = repetir · espaço = pausar · ←/→ = ±5s · D = calibrar tela</div>
+<div id="hint">clique no palco/R = repetir · espaço = pausar · ←/→ = ±5s · H = ocultar hud · D = calibrar tela</div>
 <div id="player">
   <button id="pp" title="pausar/tocar (espaço)">⏸</button>
   <input id="bar" type="range" min="0" max="1200" value="0" step="1">
@@ -1460,6 +1462,7 @@ function draw(now){
 addEventListener('pointerdown',e=>{ if(e.target===cv) replay(); });   // clique no palco = repetir
 addEventListener('keydown',e=>{ const k=e.key.toLowerCase();
   if(k==='r')replay(); if(k==='d')DEBUG=!DEBUG;
+  if(k==='h')document.body.classList.toggle('nohud');
   if(k===' '){ e.preventDefault(); togglePause(); }
   if(e.key==='ArrowRight'){ e.preventDefault(); seekTo(curEl()+5); }
   if(e.key==='ArrowLeft'){ e.preventDefault(); seekTo(curEl()-5); } });
