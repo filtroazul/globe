@@ -22,8 +22,19 @@
 >    asset novo a princípio) e a volta ao "Era uma vez…" (menina da cena 1
 >    continua escrevendo; a frase vira várias histórias). Fecho do filme já
 >    existe como beat na cena 5 — decidir se repete ou emenda.
-> 4. **pacing**: 5:14 → ≤3min (apertar QSEQ/Q3SEQ/Q4SEQ/CSEQ, holds, S6.dwell,
->    0.05s/letra) SÓ quando o conteúdo todo fechar.
+> 4. ✅ **PACING RESOLVIDO POR TIME-WARP** (2026-07-03, sessão 4): a peça agora roda em
+>    **~3:01 REAIS** (timeline virtual segue 5:14 — nada foi cortado). Um mapa
+>    tempo-real→tempo-da-timeline por segmentos (`SPEED`/`WARP` no código, logo após
+>    `DUR`) acelera cada trecho: escrita a `V_WRITE:1.45` (legível), respiros
+>    pós-frase a `V_HOLD:2.6` (público já leu), visuais 1.3–2.2x ("era uma vez"=1.3x
+>    pedido; refs 1.9x; livro refolheia 2.2x; estações cena 6 a 2.0x; título/fecho
+>    1.25–1.3x, dramáticos). O boil de linha usa `performance.now()` → segue 8fps DE
+>    VERDADE nos trechos acelerados (por isso NÃO acelerar na edição de vídeo — vira
+>    borrão/ghost). Player/barra/tempo agora em TEMPO REAL (`REDUR`≈180.9);
+>    `__seek`/`__s3` continuam recebendo tempo DA TIMELINE (virtual); novos:
+>    `window.__v()` (virtual atual) e `window.__redur`. Verificado com screenshots
+>    nos 4 pontos-chave. ⚠️ quando as cenas 7–8 ENTRAREM, re-tunar a tabela SPEED
+>    (conteúdo novo = mais tempo; teto continua 3min).
 > **Jeito de trabalhar**: "de pouco em pouco" — um passo por vez no chat, prompt
 > de GPT pronto pra colar quando precisar de asset (frame a frame, anexar
 > `ultimo_frame.png`), fatiar/re-registrar/verificar com screenshot ANTES de
@@ -149,8 +160,8 @@
 >    "limpa", pause bars muito retas, timing dos dwells (7.5s por estação).
 > 3. **cenas 7–8** (páginas se preenchendo — reuso dos futuro_*.png; volta ao "Era
 >    uma vez…" com a menina escrevendo) + fecho do filme.
-> 4. **pacing geral**: peça em ~5:14 (pedido ≤3min) — apertar knobs quando o
->    conteúdo fechar.
+> 4. ✅ pacing geral: RESOLVIDO por time-warp (ver item 4 do bloco ⭐ acima) —
+>    ~3:01 reais sem cortar nada; re-tunar `SPEED` quando 7–8 entrarem.
 >
 > O que vem agora:
 >
