@@ -27,7 +27,7 @@
 </head>
 <body>
 <canvas id="c"></canvas>
-<div id="hint">clique no palco/R = repetir · espaço = pausar · ←/→ = ±5s · H = ocultar hud · D = calibrar tela</div>
+<div id="hint">▶ ou clique no palco = tocar (com som) · R = repetir · espaço = pausar · ←/→ = ±5s · H = ocultar hud · D = calibrar tela</div>
 <div id="player">
   <button id="pp" title="pausar/tocar (espaço)">⏸</button>
   <input id="bar" type="range" min="0" max="1200" value="0" step="1">
@@ -557,8 +557,10 @@ let t0=performance.now();
 const DUR=REW_END+S6F.at+6;                              // fim nominal: a frase montada + respiro
 const bar=document.getElementById('bar'), tm=document.getElementById('tm'), pp=document.getElementById('pp');
 bar.max=Math.ceil(DUR*10);
-let paused=false, pausedEl=0;
+const AUTOSTART=/nohud|export/.test(location.search);    // exportação/preview auto-começa;
+let paused=!AUTOSTART, pausedEl=0;                       // visitante aperta ▶ (aí a música toca junto)
 const fmtT=s=>{ s=Math.max(0,s); return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'); };
+pp.textContent=paused?'▶':'⏸';
 function curEl(){ return paused?pausedEl:(performance.now()-t0)/1000; }
 function seekTo(s){ s=Math.max(0,Math.min(DUR,s));       // seek: o estado é todo função de el,
   pausedEl=s; t0=performance.now()-s*1000;               // só o gatilho dos futuros precisa zerar
@@ -573,7 +575,6 @@ function musSync(force){ try{ if(force||Math.abs(MUS.currentTime-curEl())>0.35)
   MUS.currentTime=Math.max(0,curEl()); }catch(_){} }     // antes do metadata carregar pode falhar
 function musPlay(){ MUS.play().catch(()=>{}); }          // autoplay pode ser negado — destrava no 1º gesto
 setInterval(()=>{ if(!paused&&!MUS.paused) musSync(); },2000); // corrige drift do relógio do áudio
-musPlay();
 const musUnlock=()=>{ if(!paused&&MUS.paused){ musSync(true); musPlay(); } };
 addEventListener('pointerdown',musUnlock); addEventListener('keydown',musUnlock);
 bar.addEventListener('input',()=>seekTo(bar.value/10));
