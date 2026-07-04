@@ -228,8 +228,8 @@ const QUOTES3=[
 const Q3SEQ=(()=>{ const a=[]; let t=REF_END+0.7;    // agenda auto-derivada (como a QSEQ)
   for(const q of QUOTES3){ const n=q.replace(/\n/g,'').length;
     const wDur=Math.max(1.6,n*0.04), start=t+0.45, end=start+wDur;
-    a.push({ text:q, hand:t, start, wDur, lift:end+0.2, fade:end+1.1, fadeDur:0.65 });
-    t=end+1.1+0.65+0.2; }
+    a.push({ text:q, hand:t, start, wDur, lift:end+0.2, fade:end+0.7, fadeDur:0.4 });
+    t=end+0.7+0.4+0.15; }                              // fade-out rápido SÓ aqui (pedido: o texto passa logo)
   return a; })();
 const Q3_END=Q3SEQ[Q3SEQ.length-1].fade+Q3SEQ[Q3SEQ.length-1].fadeDur;
 // ---- cena 4 (início): o LIVRO volta na tela (fade in + transformação inteira + folheia)
@@ -343,8 +343,8 @@ const CRACK_DK=[0.06,0.11,0.17,0.24,0.30];               // escurecimento por de
 // sobrando a tirinha serrilhada; por trás, uma página NOVA mais clara. o TÍTULO NÃO sai
 // com ela: fica vivo por cima (a única coisa que sobrevive).
 const BG5='#f9f5ec';                                     // a página nova (mais clara)
-const T5b={ crack2At:T4.titleStart+T4.titleDur+0.5 };    // título escrito -> teia cresce
-T5b.tearAt=T5b.crack2At+1.1; T5b.tearDraw=0.8; T5b.tearDur=1.4;  // rasgo desenha -> arranca
+const T5b={ crack2At:T4.titleStart+T4.titleDur+0.3 };    // título escrito -> teia cresce (dramático encurtado)
+T5b.tearAt=T5b.crack2At+0.6; T5b.tearDraw=0.8; T5b.tearDur=1.4;  // rasgo desenha -> arranca (animações intactas)
 T5b.gone=T5b.tearAt+T5b.tearDraw+T5b.tearDur;
 const TEAR=(()=>{ const p=[], n=26;                      // o rasgo (irregular, quase vertical)
   for(let i=0;i<=n;i++){ const t=i/n;
@@ -358,7 +358,7 @@ const CAMP=[
   "uma campanha que lembra:\nestudar faz histórias voarem alto.",
   "que o saber não é obrigação da escola:\né abrir possibilidades pra vida."
 ];
-const CSEQ=(()=>{ const a=[]; let t=T5b.gone+0.4;
+const CSEQ=(()=>{ const a=[]; let t=T5b.gone+0.2;      // campanha entra logo após o rasgo (dramático encurtado)
   for(const q of CAMP){ const n=q.replace(/\n/g,'').length;
     const wDur=Math.max(1.6,n*0.04), start=t+0.45, end=start+wDur;
     a.push({ text:q, hand:t, start, wDur, lift:end+0.2, fade:end+1.4, fadeDur:0.7 });
